@@ -1,0 +1,45 @@
+{% load humanize %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Device Checkins</title>
+</head>
+<body>
+
+<div class="container">
+
+{% for device in devices %}
+
+<div class="card">
+  <div class="card-header">
+    {{ device.device_name }}
+  </div>
+  <div class="card-body">
+    <h1>{{ device.last_checkin.ip_address }}</h1>
+    <h5 class="card-title">{{ device.last_checkin.created|naturaltime }}</h5>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">At this address since {{ device.current_streak_start|naturaltime }}</li>
+    <li class="list-group-item">Has checked in {{ device.checkins_in_last_24_hours }} time{{ device.checkins_in_last_24_hours|pluralize }} in the last 24 hours</li>
+    <li class="list-group-item">Checking in since {{ device.checking_in_since|naturaltime }}</li>
+    <li class="list-group-item">Has been at {{ device.unique_ip_addresses|intcomma }} IP address{{ device.unique_ip_addresses|pluralize:"es" }}.</li>
+  </ul>
+</div>
+<br>
+{% endfor %}
+
+
+</div>
+
+
+
+
+
+
+
+
+</body>
+</html>
